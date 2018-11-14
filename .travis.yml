@@ -1,6 +1,9 @@
 language: python
 python:
   - "3.6"
+branches:
+  only:
+    - src
 install:
   - pip install -r requirements.txt
 deploy:
@@ -11,5 +14,3 @@ deploy:
   target-branch: master
   keep_history: true
   verbose: true
-  on:
-    branch: src
