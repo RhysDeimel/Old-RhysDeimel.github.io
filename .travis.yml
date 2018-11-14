@@ -3,12 +3,14 @@ language: python
 python:
   - "3.6"
 branches:
-  only:
-    - src
+  except:
+    - master
 install:
   - pip install -r requirements.txt
 script:
-  - echo "hello world"
+  - echo "this would be where I run pytest..."
+before-deploy:
+  script: pelican content
 deploy:
   provider: pages
   skip-cleanup: true
