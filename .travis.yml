@@ -10,7 +10,7 @@ install:
 script:
   - echo "this would be where I run pytest..."
 before_deploy:
-  script: pelican content
+  - pelican content
 deploy:
   provider: pages
   skip-cleanup: true
