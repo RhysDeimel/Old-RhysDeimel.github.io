@@ -12,7 +12,7 @@ link http://docs.getpelican.com/en/stable/tips.html#publishing-to-github
 Pelican has a plugin, `ghp-import`, which makes things easier
 -->
 
-# Some Title
+# A Wonderful Bird Is the Pelican
 
 Python. Pelican. A Blog so I don't have to remember the things I do. Awesome.
 
@@ -22,18 +22,15 @@ Now, not going to lie, but the default theme for Pelican is pretty heinous. [Sam
 
 With that in mind, here's what I did.
 
+## His Beak Can Hold More Than His Belly Can
 
+First off, the basics. You're going to need to create your directory, and then you should _probably_ create your virtual environment. You don't have to, but don't say I didn't warn you. Once you've activated your virtual envrionment (you did do that, right?), smash a `pip install pelican markdown ghp-import` into the console. You can see I've decided to install markdown, because I'd like to be able to write with it, but the next part -- `ghp-import` -- I'm reasonably certain I don't need. I think that's a relic from a first round attempt at automatic publishing. Maybe I'll revise this later and remove it (highly unlikely).
 
-## Some SubHeader
+As of writing, Pelican is at version `4.0.0`, so if anything is funky, blame that. You might want to add a `.gitignore` also. I used Github's generic [Python.gitignore](https://github.com/github/gitignore/blob/master/Python.gitignore) because I'm lazy, but craft your own if that's your jam.
 
-New install with pelican 4.0.0
-- create dir
-    - create venv
-    - install pelican `pip install pelican markdown ghp-import`
-        pelican, markdown cause I want to write in markdown, and ghp-import so we can do things with github pages
-    - add .gitignore [https://github.com/github/gitignore/blob/master/Python.gitignore]
+## He Can Hold in His Beak
 
-`pelican-quickstart`
+Next up is getting off our `master` branch. You'll thank me later, so just create another with `git checkout -b src`. Once you're on your `src` branch, run `pelican-quickstart`. You'll be bombarded with a series of questions to help get your project up and running. I'm going to dump mine below for reference.
 
 ```
 $ pelican-quickstart
@@ -54,10 +51,14 @@ needed by Pelican.
 > How many articles per page do you want? [10]
 > What is your time zone? [Europe/Paris] Australia/Sydney
 > Do you want to generate a tasks.py/Makefile to automate generation and publishing? (Y/n) n
-Done. Your new project is available at /mnt/c/Users/LucidNightmare/Coding/blog
+Done. Your new project is available at /mnt/c/Users/someawesomedir/blog
 ```
 
-make a test page in content:
+Pretty self explanatory for the most part. I'm aiming to make this blog a regular-_ish_ thing, so pagination is enabled. You'll notice I did choose to skip `tasks.py/Makefile` generation though. Travis will take care of that for me.
+
+## Enough Food for a Week!
+
+Time to make a test page in content. We'll just rip the example straight from the Pelican docs and place it in our `content` folder that should be sitting in our project root:
 
 ```
 Title: My First Review
@@ -67,10 +68,20 @@ Category: Review
 Following is a review of my favorite mechanical keyboard.
 ```
 
-`pelican content`
+Once we've created that file, we need to turn everything into a static site. Run `pelican content` and you should find that an `output` folder is created, and filled with html files. Progress! To preview it, all we need to do is throw `pelican --listen` into the command line, and we should find out blog being served at `http://localhost:8000/`. __Protip:__ throw in the `-r` flag if you'd like Pelican to rebuild every time it detects a change in the `content` folder.
 
-`pelican --listen`
+## But I'll Be Darned If I Know How the Hellican?
+
+Lastly is travis integration. Hooking up was _fun_, as Travis usually is.
 
 
-Hooking up to travis was _fun_
+
+
+
+
 - travis has a deploy integration for github pages that is pretty much the same as the one in fabric. The only issue is figuring out the travis shenanigans. End result is the file I ended up with. `Script` will run future tests, `before_deploy` generates content, `deploy` pushes everything in the output dir to master.
+
+
+
+
+
