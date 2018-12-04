@@ -264,3 +264,35 @@ Search for packages: https://launchpad.net/ubuntu/xenial
 
 https://wiki.archlinux.org/index.php/WPA_supplicant
 https://serverfault.com/questions/286768/linux-ubuntu-two-nics-separate-lan
+
+===========================================
+
+Gotta use wpasupplicant.
+
+install packages
+- libpcsclite (`libpcsclite1_1.8.14-1ubuntu1_amd64.deb`)
+- wpasupplicant (`wpasupplicant_2.4-0ubuntu6_amd64.deb`)
+
+Genrate PSK
+```
+~$ wpa_passphrase SausageSmugglers-2.4GHz MyPass
+network={
+  ssid="SausageSmugglers-2.4GHz"
+  #psk="MyPass"
+  psk=94db682f03164f757481e54e3e309c04885807f2950f79f7eea51bdb996c9ed5
+}
+```
+
+`lshw -C network` get logical name of wireless card
+
+add entry to `/etc/network/inerfaces`
+```
+auto wls160
+iface wls160 inet dhcp
+wpa-ssid SausageSmugglers-2.4GHz
+wpa-psk 94db682f03164f757481e54e3e309c04885807f2950f79f7eea51bdb996c9ed5
+wpa-key-mgmt WPA-PSK
+```
+
+Reboot network interface
+`sudo systemctl restart networking.service` or just `sudo reboot`
