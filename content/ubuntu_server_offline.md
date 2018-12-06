@@ -285,14 +285,20 @@ network={
 
 `lshw -C network` get logical name of wireless card
 
+Can change default network interface `sudo ip route change to default dev wls160 via 192.168.1.1`
+
 add entry to `/etc/network/inerfaces`
 ```
 auto wls160
 iface wls160 inet dhcp
+post-up ip route change to default dev wls160 via 192.168.1.1
+post-down ip route change default dev ens192 via 192.168.0.1
 wpa-ssid SausageSmugglers-2.4GHz
 wpa-psk 94db682f03164f757481e54e3e309c04885807f2950f79f7eea51bdb996c9ed5
 wpa-key-mgmt WPA-PSK
 ```
+
+
 
 Reboot network interface
 `sudo systemctl restart networking.service` or just `sudo reboot`
