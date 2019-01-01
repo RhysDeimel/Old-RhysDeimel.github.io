@@ -1,0 +1,1 @@
+https://www.kennethreitz.org/essays/a-better-pip-workflow
