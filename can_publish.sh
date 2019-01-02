@@ -10,7 +10,8 @@ for filename in content/drafts/*.md; do
 
         if [ "$today" -ge "$post_date" ]; then
             echo "$(basename $filename) should be published"
-            sed -i '' 's/Status: ready/Status: published/' $filename
+            sed -i 's/Status: ready/Status: published/' $filename
+            mkdir -p content/posts/$(date +%Y)/
             mv $filename content/posts/$(date +%Y)/$(basename $filename)
         else
             echo "Publish date has not been reached, skipping."
