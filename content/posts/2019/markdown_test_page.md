@@ -2,6 +2,7 @@ Title: Markdown Test Page
 Date: 2019-02-01
 Category: Test
 Summary: Test page for theme development
+Status: published
 
 # <a name="top"></a>Markdown Test Page
 

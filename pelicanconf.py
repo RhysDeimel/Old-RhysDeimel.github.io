@@ -11,6 +11,9 @@ PATH = 'content'
 TIMEZONE = 'Australia/Sydney'
 
 DEFAULT_LANG = 'en'
+DEFAULT_METADATA = {
+    'status': 'draft',
+}
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
