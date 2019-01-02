@@ -10,6 +10,7 @@ install:
 script:
   - echo "this would be where I run pytest..."
 before_deploy:
+  - ./can_publish.sh
   - pelican content
 deploy:
   provider: pages
