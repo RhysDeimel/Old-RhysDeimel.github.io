@@ -9,6 +9,8 @@ install:
   - pip install -r requirements.txt
 script:
   - echo "this would be where I run pytest..."
+after_success:
+  - ./push.sh
 before_deploy:
   - ./can_publish.sh
   - pelican content
