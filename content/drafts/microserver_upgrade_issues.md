@@ -1,3 +1,8 @@
+Title: Microserver upgrade issues
+Date: 2019-01-06
+Category: tinker
+Tags: server, electronics, jank
+Summary: Upgrading a HP Microserver Gen8 and building my own PWM inverter
 Status: draft
 
 Talk about microserver purchase, then upgrades.

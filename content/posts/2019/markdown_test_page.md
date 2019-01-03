@@ -1,6 +1,6 @@
 Title: Markdown Test Page
 Date: 2019-01-01
-Category: Test
+Category: test
 Summary: Test page for theme development
 Status: published
 

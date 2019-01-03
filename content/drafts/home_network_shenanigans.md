@@ -1,6 +1,6 @@
 Title: Home network shenanigans
 Date: 2018-12-01
-Category: HowTo
+Category: howto
 Tags: route table, network 
 Summary: Playing with route tables so I can access ILO in a separate network
 Status: draft
