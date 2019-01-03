@@ -1,9 +1,9 @@
 Title: Nmap and WSL
-Date: 2019-01-01
+Date: 2019-01-06
 Category: HowTo
 Tags: nmap, windows, wsl
 Summary: Getting Nmap to work with WSL
-Status: published
+Status: ready
 
 I needed WSL for playing around with a home networking project. Now, I could have booted into Linux, but I was already on my Win10 boot, and WSL _seemed_ like a quicker option.
 

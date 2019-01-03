@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 today=$(date +%s)
 
+echo "Checking to see if anything needs publishing"
 for filename in content/drafts/*.md; do
     [ -e "$filename" ] || continue
 
