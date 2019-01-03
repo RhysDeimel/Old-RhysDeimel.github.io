@@ -1,5 +1,5 @@
 Title: Nmap and WSL
-Date: 2019-01-06
+Date: 2019-01-01
 Category: HowTo
 Tags: nmap, windows, wsl
 Summary: Getting Nmap to work with WSL
