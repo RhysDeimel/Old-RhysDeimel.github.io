@@ -6,13 +6,14 @@ setup_git() {
 }
 
 commit_website_files() {
-  git status
+  # git status
   # git checkout -b src
-  # git add content
-  # git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
+  git add content
+  git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }
 
 upload_files() {
+  git push origin HEAD:src
   # git remote add origin-pages https://${GH_TOKEN}@github.com/MVSE-outreach/resources.git > /dev/null 2>&1
   # git push --quiet --set-upstream origin-pages gh-pages 
   # git push
