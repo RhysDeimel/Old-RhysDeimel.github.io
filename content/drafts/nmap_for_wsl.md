@@ -13,7 +13,7 @@ I ended up coming across [this](https://medium.com/@the4rchangel/nmap-in-the-win
 
 Here's how I did it:
 
-Head over to the nmap downloads page on their [website](https://nmap.org/download.html) and get the lastest stable windows command-line zipfile. [7.70](https://nmap.org/dist/nmap-7.70-win32.zip) at time of writing.
+Head over to the nmap downloads page on their [website](https://nmap.org/download.html) and get the latest stable windows command-line zipfile. [7.70](https://nmap.org/dist/nmap-7.70-win32.zip) at time of writing.
 Unzip it to a directory of your choosing. I chose `C:\Program Files (x86)\Nmap` for simplicity. Inside the unzipped directory, you should also find a `nmap_performance.reg` file. Apply that as well.
 
 Nmap requires the Npcap packet capture library, but luckily, an `.exe` should have been included in the zip (`npcap-0.99-r2.exe` at time of writing).
