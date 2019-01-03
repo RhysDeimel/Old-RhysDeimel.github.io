@@ -13,11 +13,11 @@ commit_website_files() {
 }
 
 upload_files() {
-  git push origin HEAD:src
-  # git remote add origin-pages https://${GH_TOKEN}@github.com/MVSE-outreach/resources.git > /dev/null 2>&1
+  git remote add origin https://${GH_TOKEN}@github.com/RhysDeimel/RhysDeimel.github.io.git > /dev/null 2>&1
   # git push --quiet --set-upstream origin-pages gh-pages 
   # git push
   echo "would push here"
+  git push origin HEAD:src
 }
 
 setup_git
