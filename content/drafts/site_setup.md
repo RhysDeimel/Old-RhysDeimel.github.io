@@ -1,16 +1,9 @@
 Title: Up and Running: Creating the Site With Pelican
-Date: 2018-11-22
-Category: HowTo
+Date: 2018-01-06
+Category: howto
 Tags: pelican, python, travis
 Summary: GitHub Pages quickstart Pelican and Travis CI
 Status: draft
-
-<!-- Making user pages, which publishes from the master branch. So need to make a separate branch
-https://help.github.com/articles/user-organization-and-project-pages/#user-and-organization-pages-sites
-
-link http://docs.getpelican.com/en/stable/tips.html#publishing-to-github
-Pelican has a plugin, `ghp-import`, which makes things easier
--->
 
 # A Wonderful Bird Is the Pelican
 
@@ -73,15 +66,71 @@ Once we've created that file, we need to turn everything into a static site. Run
 ## But I'll Be Darned If I Know How the Hellican?
 
 Lastly is travis integration. Hooking up was _fun_, as Travis usually is.
+Travis has a deploy integration for GitHub Pages that takes the output in a specified directory, and commits it to a specified branch. The following is the iteration of `travis.yml` at the time of writing
 
+```yaml
+dist: xenial
+language: python
+python:
+  - "3.6"
+branches:
+  except:
+    - master
+install:
+  - pip install -r requirements.txt
+script:
+  - echo "this would be where I run pytest..."
+after_success:
+  - ./can_publish.sh
+before_deploy:
+  - ./push.sh
+  - pelican content
+deploy:
+  - provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_TOKEN
+    local-dir: output
+    target-branch: master
+    keep_history: true
+    verbose: true
+    on:
+      branch: src
+```
 
+There are a few points to note here; the `script` section is a placeholder. When I get around to making my own theme, pytest will be run there to support TDD.
+`after_success` contains a short bash script `can_publish.sh`. I'll list it below for reference, but it's a workaround for the Pelican draft to published pipeline. As of writing, there's no mechanism to signal to Pelican that we want to automatically transition between the two, so by setting a third status can be used as a transition marker. If we cross reference that marker with the date on the post and the current date, we can also schedule posting via a Travis cron.
 
+```bash
+#!/usr/bin/env bash
+today=$(date +%s)
 
+echo "Checking to see if anything needs publishing"
+for filename in content/drafts/*.md; do
+    [ -e "$filename" ] || continue
 
+    if grep -q "Status: ready" $filename; then
+        echo "$(basename $filename) is finalised"
+        post_date=$(grep Date $filename | cut -d' ' -f2)
+        post_date=$(date -d $post_date +%s)
 
-- travis has a deploy integration for github pages that is pretty much the same as the one in fabric. The only issue is figuring out the travis shenanigans. End result is the file I ended up with. `Script` will run future tests, `before_deploy` generates content, `deploy` pushes everything in the output dir to master.
+        if [ "$today" -ge "$post_date" ]; then
+            echo "$(basename $filename) should be published"
 
+            sed -i 's/Status: ready/Status: published/' $filename
+            mkdir -p content/posts/$(date +%Y)/
+            mv $filename content/posts/$(date +%Y)/$(basename $filename)
+        else
+            echo "Publish date has not been reached, skipping."
+        fi
+    fi
+done
+```
 
+`can_publish.sh` also moves files around for organisational reasons, so the next script (`push.sh`) in `before_deploy.sh` commits and pushes the changes to the `src`. The `push` command is a little atypical in that Travis by default checks out a specific commit, resulting in a detached head. So we need to specify the upsteam location with `-u`, and also specify the branch we want to commit to.
+```
+git push -u https://RhysDeimel:$GITHUB_TOKEN@github.com/RhysDeimel/RhysDeimel.github.io.git/ HEAD:src
+```
 
+Lastly, the `deploy` section is relatively cookiecutter. For everything on the `src` branch generated in the content folder by `pelican content`, push it to master.
 
-
+And there we have it, a decent Pelican blog with Travis setup.
