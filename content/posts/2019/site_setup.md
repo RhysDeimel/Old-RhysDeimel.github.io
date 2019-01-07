@@ -3,7 +3,7 @@ Date: 2019-01-06
 Category: howto
 Tags: pelican, python, travis
 Summary: GitHub Pages quickstart Pelican and Travis CI
-Status: ready
+Status: published
 
 # A Wonderful Bird Is the Pelican
 
@@ -112,7 +112,7 @@ echo "Checking to see if anything needs publishing"
 for filename in content/drafts/*.md; do
     [ -e "$filename" ] || continue
 
-    if grep -q "Status: ready" $filename; then
+    if grep -q "Status: published" $filename; then
         echo "$(basename $filename) is finalised"
         post_date=$(grep Date $filename | cut -d' ' -f2)
         # can't pipe to date without headaches, hence the following
@@ -121,7 +121,7 @@ for filename in content/drafts/*.md; do
         if [ "$today" -ge "$post_date" ]; then
             echo "$(basename $filename) should be published"
 
-            sed -i 's/Status: ready/Status: published/' $filename
+            sed -i 's/Status: published/Status: published/' $filename
             mkdir -p content/posts/$(date +%Y)/
             mv $filename content/posts/$(date +%Y)/$(basename $filename)
         else
