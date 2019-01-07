@@ -9,7 +9,7 @@ for filename in content/drafts/*.md; do
 
     if grep -q "Status: ready" $filename; then
         echo "$(basename $filename) is finalised"
-        post_date=$(grep Date $filename | cut -d' ' -f2)
+        post_date=$(grep Date $filename | head -1 | cut -d' ' -f2)
         post_date=$(date -d "$post_date" +%s)
 
         if [ "$today" -ge "$post_date" ]; then
